@@ -74,8 +74,12 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+  border: 0.5px solid coral;
   margin: 0px 5px;
   cursor: pointer;
+  &:hover {
+    border: 1px solid blue;
+  }
 `;
 
 const FilterSize = styled.select`
@@ -152,6 +156,9 @@ const Product = () => {
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
+  const [bordercolor, setBorderColor] = useState("coral");
+  const [bordersize, setBorderSize] = useState(0);
+
   const [size, setSize] = useState("");
   const dispatch = useDispatch();
 
@@ -173,6 +180,10 @@ const Product = () => {
       setQuantity(quantity + 1);
     }
   };
+  // const setstyle = (bordercolor, bordersize) => {
+  //   setBorderColor(bordercolor);
+  //   setBorderSize(bordersize);
+  // };
 
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity, color, size }));

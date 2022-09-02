@@ -4,11 +4,14 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { deleteProducts } from "../redux/apiCalls";
+import { deleteProductSuccess } from "../redux/cartRedux";
 
 const Container = styled.div``;
 
@@ -156,13 +159,24 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
 `;
+const Buttondelete = styled.button`
+  width: 50%;
+  margin: 1rem 0;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+`;
 
 const KEY =
   "pk_test_51LIb12SFccO3ktq5YZJUASuwsgfpHMCpmmj8TKItdW3L3FOb1o49O1muNxsgc67I7bgJeUvPW8qS19H3J3NaEjRa00g6YgyOME";
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log(cart);
   const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
+  const dispatch = useDispatch();
   const onToken = (token) => {
     setStripeToken(token);
   };
@@ -189,6 +203,10 @@ const Cart = () => {
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
 
+  const handleDelete = (id) => {
+    dispatch(() => deleteProductSuccess(id));
+  };
+
   // console.log(cart);
   return (
     <Container>
@@ -197,7 +215,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
@@ -232,6 +252,13 @@ const Cart = () => {
                   <ProductPrice>
                     $ {product.price * product.quantity}
                   </ProductPrice>
+                  <Buttondelete
+                    onClick={() => {
+                      dispatch(deleteProductSuccess(product._id));
+                    }}
+                  >
+                    delete
+                  </Buttondelete>
                 </PriceDetail>
               </Product>
             ))}
