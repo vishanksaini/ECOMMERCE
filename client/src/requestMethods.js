@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "http://localhost:5000/api/";
 
 const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user)
-  .currentUser.accessToken;
+  .currentUser?.accessToken;
 // if (
 //   JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user)
 //     .currentUser === null
@@ -36,6 +36,7 @@ const TOKEN = JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user)
 //       return Promise.reject(error);
 //     }
 //   );
+
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,

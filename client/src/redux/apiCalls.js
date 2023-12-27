@@ -41,12 +41,12 @@ export const logout = async (dispatch, user) => {
   }
 };
 
-export const deleteProducts = async (id, dispatch) => {
-  dispatch(deleteProductStart());
-  try {
-    // const res = await userRequest.delete(`/products/${id}`);
-    dispatch(deleteProductSuccess(id));
-  } catch (err) {
-    dispatch(deleteProductFailure());
-  }
-};
+// export const deleteProducts = async (id, dispatch) => {
+//   dispatch(deleteProductStart());
+//   try {
+//     // const res = await userRequest.delete(`/products/${id}`);
+//     dispatch(deleteProductSuccess(id));
+//   } catch (err) {
+//     dispatch(deleteProductFailure());
+//   }
+// };
